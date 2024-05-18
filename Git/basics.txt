@@ -1,0 +1,12 @@
+
+
+
+
+After creating git reposotory you need to clone it to your local computer
+# clone git@github.com:ghitaismylife/Notes.git
+Then create what ever you want unless one file to proceed 
+after that
+# git add --all
+# git commit -m "your message"
+# git push origin main
+
