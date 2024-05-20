@@ -1,3 +1,14 @@
 ansible client  -m ansible.builtin.command -a reboot
 # -m to address the module 
-# -a arguments  
+# -a arguments
+
+# ansible.command.shell used when shel items like pipes and redirections are required 
+#ansbile.command.raw used when python is not installed on the managed host
+#ansbile.command.package
+#ansbile.command.user
+ansbile-doc "the name of the module"
+
+
+d
+
+  
