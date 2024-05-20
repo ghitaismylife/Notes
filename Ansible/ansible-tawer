@@ -1,0 +1,8 @@
+ansible tower support only OSes include Red Hat Enterprise Linux 7.7+, CentOS Linux 7.7+, and CentOS Stream 8.
+to install it :
+# wget https://releases.ansible.com/ansible-tower/setup/ansible-tower-setup-latest.tar.gz
+# tar xfv ansible-tower-setup-latest.tar.gz 
+# cd ansible-tower-setup-3.8.6-2/
+# vim inventory
+add the password : 04 passwords
+# sudo ./setup.sh
