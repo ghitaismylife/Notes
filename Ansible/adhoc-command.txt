@@ -7,8 +7,7 @@ ansible client  -m ansible.builtin.command -a reboot
 #ansbile.command.package
 #ansbile.command.user
 ansbile-doc "the name of the module"
-
-
-# aoid using command , shell and raw because thy are not idempotent
+# Avoid using command , shell and raw because thy are not idempotent
+# = means mandatory option
 
   
