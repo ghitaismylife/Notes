@@ -18,7 +18,7 @@ kube-system            Active   76d
 kubernetes-dashboard   Active   76d
 
 # server@server1:~/Notes$ kubectl get pods --namespace=kube-system
-NAME                               READY   STATUS    RESTARTS           AGE
+NAME                               READY   STATUS     RESTARTS           AGE
 coredns-5dd5756b68-rfstt           1/1     Running   12 (51m ago)   76d
 etcd-minikube                      1/1     Running   12 (51m ago)   76d
 kube-apiserver-minikube            1/1     Running   13 (51m ago)   76d
