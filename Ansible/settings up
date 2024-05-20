@@ -1,1 +1,3 @@
 ansible -i inventory client  -m user -a "name=ansible create_home=yes" -u client -b -k -K
+ansible -i inventory client  -m shell -a "echo 'ansible:password'| chpasswd" -u client -b -k -K
+ansible -i inventory client -m command -a "id" -u ansible 
