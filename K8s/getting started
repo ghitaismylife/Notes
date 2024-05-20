@@ -1,0 +1,2 @@
+# minikube ip 
+# sudo docker exec -it  minikube bash //to log in node for minikube
