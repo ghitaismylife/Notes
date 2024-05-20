@@ -1,0 +1,23 @@
+---
+- name: lab01
+  hosts: client
+  tasks:
+  - name: install apache2 and ufw
+    ansible.builtin.package:
+      name: 
+        - apache2
+        - ufw
+      state: present
+  - name: Start service apache2, if not started
+    ansible.builtin.service:
+      name: apache2
+      state: started
+
+  - name: Allow Apache through firewall (HTTPS)
+    ufw:
+      rule: allow
+      port: 443
+      comment: "Allow HTTPS traffic"
+
+  - name: Reload UFW
+    command: ufw reload
