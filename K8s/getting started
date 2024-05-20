@@ -1,2 +1,29 @@
 # minikube ip 
 # sudo docker exec -it  minikube bash //to log in node for minikube
+# server@server1:~/Notes$ kubectl cluster-info
+Kubernetes control plane is running at https://192.168.49.2:8443
+CoreDNS is running at https://192.168.49.2:8443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+# server@server1:~/Notes$ kubectl get nodes
+NAME       STATUS   ROLES           AGE   VERSION
+minikube   Ready    control-plane   76d   v1.28.3
+
+# server@server1:~/Notes$ kubectl get namespace
+NAME                   STATUS   AGE
+default                Active   76d
+ingress-nginx          Active   64d
+kube-node-lease        Active   76d
+kube-public            Active   76d
+kube-system            Active   76d
+kubernetes-dashboard   Active   76d
+
+# server@server1:~/Notes$ kubectl get pods --namespace=kube-system
+NAME                               READY   STATUS    RESTARTS       AGE
+coredns-5dd5756b68-rfstt           1/1     Running   12 (51m ago)   76d
+etcd-minikube                      1/1     Running   12 (51m ago)   76d
+kube-apiserver-minikube            1/1     Running   13 (51m ago)   76d
+kube-controller-manager-minikube   1/1     Running   13 (51m ago)   76d
+kube-proxy-sv29b                   1/1     Running   12 (51m ago)   76d
+kube-scheduler-minikube            1/1     Running   12 (51m ago)   76d
+storage-provisioner                1/1     Running   22 (27m ago)   76d
+
