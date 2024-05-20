@@ -1,1 +1,1 @@
-minikube start/stop/staus
+# minikube start/stop/staus 
