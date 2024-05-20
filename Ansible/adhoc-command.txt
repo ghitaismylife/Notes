@@ -9,6 +9,6 @@ ansible client  -m ansible.builtin.command -a reboot
 ansbile-doc "the name of the module"
 
 
-d
+# aoid using command , shell and raw because thy are not idempotent
 
   
