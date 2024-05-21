@@ -1,1 +1,8 @@
-# ansible-playbook variables.yml -e user=Ahmed
+# ansible-playbook variables.yml -e user=Ahme
+ vars_files: var-file.yml //include it in playbook header
+**********************************
+ tasks:
+ -  set_fact:
+    myvar: mnvar // it is for hors this scop and it is for the whole playbook
+    *****************************************************
+    

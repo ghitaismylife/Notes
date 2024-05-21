@@ -1,9 +1,0 @@
----
-- name: variables play book
-  hosts: client
-  vars:
-    user: Ali
-  tasks:
-    - name: Create a user {{user}}
-      user:
-        name: "{{user}}"  

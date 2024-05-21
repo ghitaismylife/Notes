@@ -1,0 +1,10 @@
+---
+- name: variables play book
+  hosts: client
+  gather_facts: no 
+  vars_files: var-file.yml 
+  tasks:
+    - name: install package {{editor}}
+      package:
+        name: "{{editor}}"  
+        state: latest
