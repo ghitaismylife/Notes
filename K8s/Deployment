@@ -1,0 +1,2 @@
+# server@server1:~/Notes$ kubectl create deployment nginix-dep --image=nginx
+deployment.apps/nginix-dep created
