@@ -31,3 +31,5 @@ NAME                          READY   STATUS             RESTARTS       AGE     
 nginx                         1/1     Running            1 (14h ago)    14h     10.244.0.69   minikube   <none>           <none>
 nginx-node-864b6ff5bd-x5kv9   0/1     CrashLoopBackOff   35 (69s ago)   4d16h   10.244.0.73   minikube   <none>           <none>
 
+# server@server1:~/Notes$ kubectl delete pod nginx
+pod "nginx" deleted
