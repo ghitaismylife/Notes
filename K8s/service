@@ -1,0 +1,2 @@
+# erver@server1:~/Notes$ kubectl expose deployment nginix-dep --port=8080 --target-port=80
+service/nginix-dep exposed
