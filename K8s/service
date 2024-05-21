@@ -17,3 +17,5 @@ kubernetes      ClusterIP   10.96.0.1       <none>        443/TCP          76d
 | default   | k8s-web-hello |        3000 | http://192.168.49.2:30211 |
 |-----------|---------------|-------------|---------------------------|
 ********************************************************************
+# server@server1:~/Notes$ kubectl expose deploy k8s-web-hello --type=LoadBalancer --port=3000
+service/k8s-web-hello exposed
