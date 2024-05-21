@@ -1,2 +1,19 @@
 # erver@server1:~/Notes$ kubectl expose deployment nginix-dep --port=8080 --target-port=80
 service/nginix-dep exposed
+*********************************************************
+# server@server1:~/Notes/K8s/app/k8s-web-hello$ kubectl expose deploy k8s-web-hello --type=NodePort
+  --port=3000
+service/k8s-web-hello exposed //use ip of the node
+# server@server1:~/Notes/K8s/app$ kubectl get services
+NAME            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+k8s-web-hello   NodePort    10.100.219.38   <none>        3000:30211/TCP   2m27s
+kubernetes      ClusterIP   10.96.0.1       <none>        443/TCP          76d
+# server@server1:~/Notes/K8s/app$ minikube ip
+192.168.49.2
+# server@server1:~/Notes/K8s/app$ minikube service k8s-web-hello
+|-----------|---------------|-------------|---------------------------|
+| NAMESPACE |     NAME      | TARGET PORT |            URL            |
+|-----------|---------------|-------------|---------------------------|
+| default   | k8s-web-hello |        3000 | http://192.168.49.2:30211 |
+|-----------|---------------|-------------|---------------------------|
+********************************************************************
