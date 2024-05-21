@@ -26,4 +26,8 @@ kube-controller-manager-minikube   1/1     Running   13 (51m ago)   76d
 kube-proxy-sv29b                   1/1     Running   12 (51m ago)   76d
 kube-scheduler-minikube            1/1     Running   12 (51m ago)   76d
 storage-provisioner                1/1     Running   22 (27m ago)   76d
+# server@server1:~/Notes$ kubectl get pods -o wide
+NAME                          READY   STATUS             RESTARTS       AGE     IP            NODE       NOMINATED NODE   READINESS GATES
+nginx                         1/1     Running            1 (14h ago)    14h     10.244.0.69   minikube   <none>           <none>
+nginx-node-864b6ff5bd-x5kv9   0/1     CrashLoopBackOff   35 (69s ago)   4d16h   10.244.0.73   minikube   <none>           <none>
 
