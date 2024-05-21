@@ -11,3 +11,6 @@ Replicas:               1 desired | 1 updated | 1 total | 1 available | 0 unavai
 StrategyType:           RollingUpdate
 MinReadySeconds:        0
 RollingUpdateStrategy:  25% max unavailable, 25% max surge
+
+# server@server1:~/Notes$ kubectl scale deployment nginix-dep --replicas=5
+deployment.apps/nginix-dep scaled
