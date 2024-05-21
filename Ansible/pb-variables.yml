@@ -2,9 +2,13 @@
 - name: variables play book
   hosts: client
   gather_facts: no 
-  vars_files: var-file.yml 
+  vars_prompt: 
+  - name: package
+    prompt: whiche package
+    private: no
+
   tasks:
-    - name: install package {{editor}}
+    - name: install package {{package}}
       package:
-        name: "{{editor}}"  
+        name: "{{package}}"  
         state: latest

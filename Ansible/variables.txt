@@ -5,4 +5,16 @@
  -  set_fact:
     myvar: mnvar // it is for hors this scop and it is for the whole playbook
     *****************************************************
-    
+- name: variables play book //prompt variable
+  hosts: client
+  gather_facts: no 
+  vars_prompt: 
+  - name: package
+    prompt: whiche package
+    private: no
+  tasks:
+    - name: install package {{package}}
+      package:
+        name: "{{package}}"  
+        state: latest
+        ******************************************************
