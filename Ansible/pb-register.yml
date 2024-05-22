@@ -1,0 +1,11 @@
+- name: registre
+  hosts: client
+  tasks:
+  - shell: cat /etc/passwd
+    register: reg
+  - debug: 
+      var: "reg"
+  - debug: 
+      msg:  the status is {{reg.rc}} 
+
+

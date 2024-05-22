@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Add all changes
+git add --all .
+
+# Commit changes with provided message
+git commit -m "$(date)"
+
+# Push changes to origin's main branch
+git push origin main
+

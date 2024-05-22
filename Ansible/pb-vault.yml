@@ -1,0 +1,10 @@
+---
+- name: create user
+  hosts: client
+  vars_files: 
+    - secret.yml
+  tasks:
+  - name: create user 
+    user: 
+      name: "{{username}}"
+      password: "{{pwhash}}"
