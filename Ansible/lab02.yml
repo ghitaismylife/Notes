@@ -1,0 +1,13 @@
+---
+- name: Create a new user 
+  hosts: client
+  vars: 
+    username: newuser
+    password: mypass
+  tasks:
+    - name: create user
+      command: >
+        useradd -m -p "$(openssl passwd -1 {{password}})" {{username}}
+      ignore_errors: yes
+    - debug:
+        msg: we got here
