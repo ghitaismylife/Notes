@@ -1,0 +1,14 @@
+---
+- name: playbook11
+  hosts: client
+  #force_handlers: no
+  tasks:
+    - name: copy
+      copy:
+        src: /etc/passwd
+        dest: /home/test
+  handlers: # It is going to execute if something changed 
+    - name: handler to execute
+      package: 
+        name: vim
+        state: latest

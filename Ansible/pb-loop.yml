@@ -1,0 +1,14 @@
+---
+- name: playbook for loop 
+  hosts: client
+  vars:
+    my_services:
+      - apache2
+      - sshd
+  tasks:
+    - name: start my services
+      service:
+        name: "{{item}}"
+        state: started
+      loop: "{{ my_services }}" 
+      
