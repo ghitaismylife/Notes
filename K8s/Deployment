@@ -14,3 +14,9 @@ RollingUpdateStrategy:  25% max unavailable, 25% max surge
 
 # server@server1:~/Notes$ kubectl scale deployment nginix-dep --replicas=5
 deployment.apps/nginix-dep scaled
+***************Roullout**********************************************
+# server@server1:~/Notes/K8s/app/k8s-web-hello$ kubectl set image deploy k8s-web-hello k8s-web-hell
+o=imaderrachdi941/k8s-web-hello:2.2.0
+deployment.apps/k8s-web-hello image updated
+# server@server1:~/Notes/K8s/app/k8s-web-hello$ kubectl rollout status deploy k8s-web-hello
+deployment "k8s-web-hello" successfully rolled out
