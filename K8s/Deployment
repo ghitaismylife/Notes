@@ -20,3 +20,7 @@ o=imaderrachdi941/k8s-web-hello:2.2.0
 deployment.apps/k8s-web-hello image updated
 # server@server1:~/Notes/K8s/app/k8s-web-hello$ kubectl rollout status deploy k8s-web-hello
 deployment "k8s-web-hello" successfully rolled out
+***********************************************************
+# server@server1:~/Notes/K8s/app$ kubectl delete -f  deployment.yml -f service.yml 
+deployment.apps "k8s-web-hello" deleted
+service "k8s-web-hello" deleted
