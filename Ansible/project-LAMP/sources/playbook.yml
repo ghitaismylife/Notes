@@ -3,7 +3,9 @@
 # WEB SERVER
 - hosts: web
   become: true
-  vars_files: vars/main.yml
+  vars_files: 
+   - vars/main.yml
+   - vars/mysql-users.yml
 
   roles:
    - web
@@ -12,7 +14,9 @@
 
 - hosts: db
   become: true
-  vars_files: vars/main.yml
+  vars_files: 
+   - vars/main.yml
+   - vars/mysql-users.yml
   vars:
     root_password: "my_secret_password"
 
