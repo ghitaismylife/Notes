@@ -5,4 +5,5 @@ mysql_dbname: "blog"
 db_host: "192.168.1.117"
 webserver_host: "192.168.1.117"
 mysql_python_package: "{{ 'python3-mysqldb' if ansible_os_family == 'Debian' else 'MySQL-python' }}"
+extra_packages_debian: ['php-curl', 'php-gd', 'php-mbstring']
 

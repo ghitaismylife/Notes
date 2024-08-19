@@ -5,6 +5,7 @@
   become: true
   vars_files: vars/main.yml
 
+
   tasks:
   - name: install apache and php last version
     apt:
@@ -14,12 +15,29 @@
         - php-mysql
       state: present
       update_cache: yes
+    when: ansible_facts['os_family']=="Debian"
+
+
+  - name: install extra pckages
+    apt:
+      name: "{{extra_packages_debian}}"
+      state: present
+    when: ansible_facts['os_family']=="Debian"
+
+  - name: add users
+    user:
+      name: "{{ item }}"
+      state: present
+    loop:
+      - user1
+      - user2
 
   - name: Give writable mode to http folder
     file:
       path: /var/www/html
       state: directory
       mode: '0755'
+
 
   - name: remove default index.html
     file:
@@ -41,7 +59,8 @@
       name: apache2
       state: started
       enabled: yes
-
+    when: ansible_facts['os_family']=="Debian"
+  
 
 # DATABASE SERVER
 
@@ -58,7 +77,8 @@
         - mysql-server
         - "{{ mysql_python_package }}"
       state: present
-      update_cache: yes  
+      update_cache: yes 
+    when: ansible_facts['os_family']=="Debian"
 
   - name: Create MySQL client config
     copy:
@@ -68,6 +88,7 @@
         user=root
         password={{ root_password }}
       mode: 0400
+    when: ansible_facts['os_family']=="Debian"
 
   - name: Allow external MySQL connections (1/2)
     lineinfile:
@@ -107,10 +128,13 @@
       login_user: root
       login_password: '{{ root_password }}'
       login_unix_socket: /var/run/mysqld/mysqld.sock
+    when: ansible_facts['os_family']=="Debian"
+    notify: Restart mysql
 
   handlers:
     - name: Restart mysql
       service:
         name: mysql
         state: restarted
+      when: ansible_facts['os_family']=="Debian"
 
