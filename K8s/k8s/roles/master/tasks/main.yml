@@ -1,16 +1,4 @@
-- name: Change Docker cgroup driver - Create daemon.json file
-  file:
-    path: "/etc/docker/daemon.json"
-    state: touch
 
-- name: Change Docker cgroup driver - Edit daemon.json file
-  blockinfile:
-    path: "/etc/docker/daemon.json"
-    block: |
-            {
-               "exec-opts": ["native.cgroupdriver=systemd"]
-             }
-    marker: ""
 
 - name: Restart service docker
   systemd:
@@ -20,6 +8,11 @@
 
 - name: Initialize the Kubernetes cluster using kubeadm
   command: kubeadm init --apiserver-advertise-address="{{ node_ip }}" --apiserver-cert-extra-sans="{{ node_ip }}"  --node-name="{{ node_name }}" --pod-network-cidr={{ pod_network }}
+  vars:
+    node_ip: '192.168.1.100'
+    node_name: 'master'
+    pod_network : '192.168.1.0/24'
+
 
 - name: Setup kubeconfig for vagrant user
   command: "{{ item }}"

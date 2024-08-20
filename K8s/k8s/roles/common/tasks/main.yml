@@ -1,8 +1,5 @@
 ---
-- name: Remove old Kubernetes repository if exists
-  apt_repository:
-    repo: 'deb https://apt.kubernetes.io/ kubernetes-focal main'
-    state: absent
+
 
 - name: Remove old Docker repository if exists
   apt_repository:
@@ -60,10 +57,15 @@
   apt:
     update_cache: yes
 
-- name: Install Docker Engine
-  apt:
-    name: docker-ce
-    state: present
+#- name: Install Docker Engine
+ # apt:
+ #  name: docker-ce
+  # state: present
+- name: Ensure Docker daemon.json is configured correctly
+  template:
+        src: daemon.json.j2
+        dest: /etc/docker/daemon.json
+        mode: '0644'
 
 - name: Ensure Docker service is started and enabled
   systemd:
@@ -83,9 +85,29 @@
     - none
 
 
-- name: Disable swap
+- name: Check current swap usage
+  command: swapon --show
+  register: swap_status
+  failed_when: false
+
+- name: Display current swap usage
+  debug:
+    msg: "{{ swap_status.stdout }}"
+
+- name: Attempt to disable swap
   command: swapoff -a
-  when: ansible_swaptotal_mb > 0
+  register: swapoff_result
+  failed_when: swapoff_result.rc != 0
+
+- name: Display swapoff result
+  debug:
+    msg: "{{ swapoff_result.stdout }}"
+
+- name: Investigate if swapoff failed
+  when: swapoff_result.rc != 0
+  debug:
+    msg: "Swapoff failed with return code {{ swapoff_result.rc }}. Check system resources and logs."
+
 
 
 - name: Install Kubernetes binaries
@@ -95,12 +117,33 @@
     update_cache=yes
   with_items: "{{ k8s_packages | default([]) }}"
 
-- name: Configure node ip
-  lineinfile:
-    path: '/etc/systemd/system/kubelet.service.d/10-kubeadm.conf'
-    line: 'Environment="KUBELET_EXTRA_ARGS=--node-ip={{ node_ip }}"'
-    regexp: 'KUBELET_EXTRA_ARGS='
-    insertafter: '\[Service\]'
-    state: present
-  notify:
-    - restart kubelet
+- name: Ensure kubelet service directory exists
+  file:
+    path: /etc/systemd/system/kubelet.service.d/
+    state: directory
+- name: Empty the file
+  copy:
+        content: ""
+        dest: /etc/docker/daemon.json
+        mode: '0644'
+
+- name: Ensure Docker daemon.json is configured correctly
+  template:
+        src: daemon.json.j2
+        dest: /etc/docker/daemon.json
+        mode: '0644'
+
+- name: Create kubelet configuration file with default content
+  copy:
+
+    dest: '/etc/systemd/system/kubelet.service.d/10-kubeadm.conf'
+    content: |
+      [Service]
+      Environment="KUBELET_EXTRA_ARGS=--node-ip={{node_ip}}"
+    owner: root
+    group: root
+    mode: '0644'
+  vars:
+    node_ip: '192.168.1.100'
+
+
