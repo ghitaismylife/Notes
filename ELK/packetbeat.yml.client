@@ -1,0 +1,43 @@
+# Packetbeat configuration file
+
+packetbeat.interfaces:
+  - device: any
+
+packetbeat.protocols:
+  # Enable the protocols you want to monitor
+  http:
+    enabled: true
+    include_body_for: ["text/*"]
+
+output.elasticsearch:
+  hosts: ["127.0.0.1:9200"]
+  username: "server"  # If you have security enabled
+  password: "admin"  # If you have security enabled
+
+# Optional: Configure the output to Logstash instead
+# output.logstash:
+#   hosts: ["localhost:5044"]
+
+# Optional: Configure logging
+logging:
+  level: debug
+  to_files: true
+  files:
+    path: /var/log/packetbeat
+    name: packetbeat
+    keepfiles: 7
+    permissions: 0644
+setup.kibana:
+  host: ["127.0.0.1:5601"]
+packetbeat.protocols:
+- type: icmp
+  enabled: false
+
+- type: dns
+  ports: [53]
+
+- type: http
+  ports: [80]
+
+- type: mysql
+  ports: [3306]

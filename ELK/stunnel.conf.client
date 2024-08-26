@@ -1,0 +1,15 @@
+[service]
+client = yes
+accept = 127.0.0.1:9200
+connect = 192.168.1.119:9201
+cert = /etc/stunnel/stunnel.pem
+key = /etc/stunnel/stunnel.key
+
+[kibana]
+client = yes
+accept = 127.0.0.1:5601
+connect = 192.168.1.119:5602
+cert = /etc/stunnel/stunnel.pem
+key = /etc/stunnel/stunnel.key
+
+
