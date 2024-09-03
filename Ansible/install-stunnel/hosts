@@ -1,0 +1,5 @@
+[workers]
+ client  ansible_user=client
+
+[masters]
+ admin  ansible_user=server

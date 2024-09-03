@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: multic
+spec:
+  containers:
+  - name: alpine
+    image: alpine
+    volumeMounts:
+    - name: secret-password
+      mountPath: /etc/password
+      readOnly: true
+    command: ["/bin/sh", "-c"]
+    args:
+      - date >> /html/index.html;
+        while true; do
+          sleep 1;
+        done
+
+  volumes:
+  - name: secret-password
+    secret:
+      secretName: secret-password

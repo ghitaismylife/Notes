@@ -1,0 +1,42 @@
+---
+- name: Install and configure Packetbeat on Ubuntu
+  hosts: client
+  become: true
+  tasks:
+    - name: Remove Kubernetes repository if it exists
+      file:
+        path: /etc/apt/sources.list.d/kubernetes.list
+        state: absent
+      ignore_errors: true
+
+    - name: Add Elastic APT repository GPG key
+      apt_key:
+        url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+        state: present
+        keyring: /etc/apt/trusted.gpg.d/elastic.gpg
+
+    - name: Add Elastic APT repository
+      apt_repository:
+        repo: 'deb https://artifacts.elastic.co/packages/7.x/apt stable main'
+        state: present
+
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install Packetbeat
+      apt:
+        name: packetbeat
+        state: present
+
+    - name: Configure Packetbeat
+      template:
+        src: packetbeat.yml.j2
+        dest: /etc/packetbeat/packetbeat.yml
+        mode: '0644'
+
+    - name: Enable and start Packetbeat service
+      systemd:
+        name: packetbeat
+        state: started
+

@@ -1,0 +1,115 @@
+#Requirements
+
+#Make sure you have the following prerequisites in place before we start the installation process:
+
+    Ubuntu 22.04 Virtono Server: Ensure that you have a fresh installation of Ubuntu 22.04 on a dedicated server or virtual machine.
+    Root or Sudo Access: To execute administrative tasks, you’ll need either root access or a user account with sudo privileges.
+    Stable Internet Connection: A stable internet connection is essential, as we’ll be downloading packages and updates from the internet.
+
+Update and Upgrade
+
+The first step is to ensure that your system is up to date. Open a terminal and run the following commands:
+
+#sudo apt update && apt upgrade -y
+
+This will upgrade your system to the most recent packages and security patches and update the package list.
+Install Prerequisites
+
+Nagios has specific software prerequisites that must be installed on your Ubuntu 22.04 server. We’ll go through each of them and install them one by one.
+
+#sudo apt install autoconf gcc libc6 make wget unzip apache2 apache2-utils php libgd-dev libmcrypt-dev libssl-dev bc gawk dc build-essential snmp libnet-snmp-perl gettext
+
+This script sets up the necessary software for Nagios to run properly, including Apache, PHP, and a number of libraries.
+How to install Nagios on Ubuntu 22.04
+
+Create a Nagios User and Group
+
+Nagios should run as a separate user and group. Create them with the following commands:
+
+#sudo useradd -m -s /bin/bash nagios
+#sudo groupadd nagcmd
+#sudo usermod -a -G nagcmd nagios
+#sudo usermod -a -G nagcmd www-data
+
+Download and Compile Nagios on Ubuntu
+
+Let’s download and build Nagios Core right away. To store the Nagios source code, we will create a directory, go there, and then download the source archive:
+
+#cd /tmp
+#wget https://assets.nagios.com/downloads/nagioscore/releases/nagios-4.4.6.tar.gz
+
+Extract and Compile Nagios Core
+
+Extract the downloaded archive and navigate to the Nagios on Ubuntu source directory:
+
+#tar -zxvf nagios-4.4.6.tar.gz
+#cd nagios-4.4.6
+
+Next, configure Nagios on Ubuntu and compile it:
+
+#./configure --with-nagios-group=nagios --with-command-group=nagcmd
+#make all
+
+Install Nagios Core Binaries and Web Interface Files
+
+Install Nagios on Ubuntu binaries, init script, and web interface files:
+
+#sudo make install
+#sudo make install-commandmode
+#sudo make install-init
+#sudo make install-config
+#sudo /usr/bin/install -c -m 644 sample-config/httpd.conf /etc/apache2/sites-available/nagios.conf
+
+Install Nagios on Ubuntu Plugins
+
+Ubuntu’s package manager, apt, provides pre-compiled Nagios Plugins that you can easily install. This is the recommended method as it simplifies the installation process and ensures that you get the latest stable versions of the plugins. Run the following commands to install Nagios Plugins using apt:
+
+#sudo apt update
+#sudo apt install nagios-plugins
+#cp /usr/lib/nagios/plugins/* /usr/local/nagios/libexec/
+
+Install Nagios on Ubuntu Plugins
+
+It’s important to rebuild the Nagios configuration and restart Nagios after installing or updating plugins:
+
+#sudo /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
+#sudo systemctl restart nagios
+#sudo systemctl restart apache2
+
+Configure Apache Web Server
+
+Create a symbolic link for the Nagios Apache configuration file and enable the site:
+
+#sudo ln -s /etc/apache2/sites-available/nagios.conf /etc/apache2/sites-enabled/
+
+Enable CGI and rewrite modules for Apache:
+
+#sudo a2enmod cgi rewrite
+
+Set Nagios Admin Password
+
+Set a password for the Nagios admin user:
+
+#sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
+
+Start Nagios and Apache Services
+
+Start the Nagios and Apache services and enable them to start on boot:
+
+#sudo systemctl enable nagios
+#sudo systemctl enable apache2
+#sudo systemctl restart nagios
+#sudo systemctl restart apache2
+
+Access Nagios Web Interface
+
+Open your web browser and navigate to http://your_server_ip/nagios. Log in with the username nagiosadmin and the password you set earlier.
+
+Congratulations! You have successfully installed Nagios on Ubuntu 22.04. Now you can start configuring Nagios to monitor your network, hosts, and services.
+How to install Nagios on Ubuntu 22.04
+
+Final Thoughts
+
+This guide has provided step-by-step instructions for installing Nagios on Ubuntu 22.04. Nagios is a powerful monitoring tool that will help you keep your network infrastructure, servers, and services in check. By following these instructions, you’ve taken the first step toward proactive system monitoring and maintenance.
+
+Stay tuned for articles in the future where we will go into more detail about setting up monitoring plugins, configuring Nagios, and developing custom checks to meet your unique requirements.
